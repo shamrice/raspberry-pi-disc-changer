@@ -19,7 +19,7 @@ public class DiscChangerStarter {
     static PinState prevStateB = PinState.LOW;
     final static int motorPwmPin = 8;
     final static int maxPwm = 190;
-    final static int minPwn = 0;
+    final static int minPwn = 50;
 
     static PinState sensorAState;
     static PinState sensorBState;
@@ -32,6 +32,11 @@ public class DiscChangerStarter {
      */
     public static void main(String[] args) {
 
+        if (args.length == 1) {
+            numDiscsToSpin = Integer.parseInt(args[0]);
+            System.out.println("Spinning " + numDiscsToSpin + " discs.");
+        }
+
         final GpioController gpioController = GpioFactory.getInstance();
 
         SoftPwm.softPwmCreate(motorPwmPin, minPwn, maxPwm);
@@ -40,7 +45,7 @@ public class DiscChangerStarter {
         final GpioPinDigitalOutput motorOutputB = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_09, "Output1", PinState.LOW);
         final GpioPinDigitalOutput relayPin1 = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_00, "RelayPin1", PinState.LOW);
 
-        //final CarouselMotorController carouselMotorController = new CarouselMotorController(motorOutputA, motorOutputB);
+        //final MotorController carouselMotorController = new CarouselMotorController(motorOutputA, motorOutputB);
 
         GpioPinDigitalInput sensorPin = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_21, "SensorPin1", PinPullResistance.PULL_DOWN);
         GpioPinDigitalInput sensorPin2 = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_22, "SensorPin2", PinPullResistance.PULL_DOWN);
@@ -113,23 +118,15 @@ public class DiscChangerStarter {
             }
         });
 
-       // carouselMotorController.start();
-
-      //  SoftPwm.softPwmWrite(motorPwmPin, 200);
-
-        int pwmValue = maxPwm;
+        double pwmValue = minPwn;
         boolean isMaxSpeed = false;
         boolean isSlowed = false;
 
         double discToSlowAt = numDiscsToSpin * .80;
 
-        if (numDiscsToSpin < 100) {
-            pwmValue -= 50;
-            discToSlowAt = numDiscsToSpin * .60;
-        } else if (numDiscsToSpin < 50) {
-            pwmValue -= 130;
-            discToSlowAt = numDiscsToSpin * .4;
-        }
+        pwmValue = (minPwn + numDiscsToSpin) / 1.3;
+        if (pwmValue > maxPwm)
+            pwmValue = maxPwm;
 
         try {
             while (isRunning) {
@@ -137,7 +134,7 @@ public class DiscChangerStarter {
                 if (discCount > discToSlowAt) {
                     pwmValue = 50;
                     isSlowed = true;
-                    SoftPwm.softPwmWrite(motorPwmPin, pwmValue);
+                    SoftPwm.softPwmWrite(motorPwmPin, ((int) pwmValue));
                 }
 
                 if (!isMaxSpeed && !isSlowed) {
@@ -151,13 +148,6 @@ public class DiscChangerStarter {
                     }
                     isMaxSpeed = true;
                 }
-/*
-                for (int i = 255; i >= 0; i--) {
-                    SoftPwm.softPwmWrite(8, i);
-                    Thread.sleep(25);
-                }
-                //isRunning = false;
-*/
             }
             Thread.sleep(1000);
         } catch (Exception ex) {
@@ -166,6 +156,5 @@ public class DiscChangerStarter {
 
         SoftPwm.softPwmStop(motorPwmPin);
 
-        //carouselMotorController.stop();
     }
 }

@@ -1,6 +1,10 @@
 package io.github.shamrice.discchanger.motorcontroller;
 
+import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
+
+import java.util.List;
 
 /**
  * Created by Erik on 1/11/2017.
@@ -14,34 +18,18 @@ public abstract class MotorController {
 
     protected boolean isRunning = false;
     protected Direction direction = Direction.FORWARD;
-    protected GpioPinDigitalOutput digitalOutputA;
-    protected GpioPinDigitalOutput digitalOutputB;
+    protected int motorPinA;
+    protected int motorPinB;
+    protected List<GpioPinDigitalInput> sensorInputs;
 
-    public MotorController(GpioPinDigitalOutput digitalOutputA, GpioPinDigitalOutput digitalOutputB) {
-        this.digitalOutputA = digitalOutputA;
-        this.digitalOutputB = digitalOutputB;
+    public MotorController(MotorConfiguration motorConfiguration) {
+        this.motorPinA = motorConfiguration.getMotorPinA();
+        this.motorPinB = motorConfiguration.getMotorPinB();
+        this.sensorInputs = motorConfiguration.getSensorInputs();
     }
 
-    public void start() {
-
-        isRunning = true;
-
-        if (direction == Direction.FORWARD) {
-            digitalOutputA.setState(true);
-            digitalOutputB.setState(false);
-        } else {
-            digitalOutputA.setState(false);
-            digitalOutputB.setState(true);
-        }
-    }
-
-    public void stop() {
-
-        isRunning = false;
-
-        digitalOutputA.setState(false);
-        digitalOutputB.setState(false);
-    }
+    public abstract void start();
+    public abstract void stop();
 
     public void setDirection(Direction direction){
         this.direction = direction;
@@ -54,4 +42,6 @@ public abstract class MotorController {
     public boolean isRunning() {
         return isRunning;
     }
+
+
 }
