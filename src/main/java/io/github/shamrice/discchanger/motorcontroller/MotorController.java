@@ -12,10 +12,10 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
  */
 public abstract class MotorController {
 
-    private boolean isRunning = false;
-    private Direction direction = Direction.FORWARD;
-    private GpioPinDigitalOutput digitalOutputA;
-    private GpioPinDigitalOutput digitalOutputB;
+    protected boolean isRunning = false;
+    protected Direction direction = Direction.FORWARD;
+    protected GpioPinDigitalOutput digitalOutputA;
+    protected GpioPinDigitalOutput digitalOutputB;
 
     public MotorController(GpioPinDigitalOutput digitalOutputA, GpioPinDigitalOutput digitalOutputB) {
         this.digitalOutputA = digitalOutputA;
