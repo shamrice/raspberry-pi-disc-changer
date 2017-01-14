@@ -14,7 +14,7 @@ import java.util.Properties;
 /**
  * Created by Erik on 1/13/2017.
  */
-public class ConfigurationFactory {
+public class ConfigurationBuilder {
 
     private static final GpioController gpioController = GpioFactory.getInstance();
     private static Properties configProperties = new Properties();

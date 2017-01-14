@@ -1,9 +1,7 @@
 package io.github.shamrice.discchanger;
 
 import io.github.shamrice.discchanger.config.Configuration;
-import io.github.shamrice.discchanger.config.ConfigurationFactory;
-import io.github.shamrice.discchanger.config.definitions.Definitions;
-import io.github.shamrice.discchanger.motorcontroller.*;
+import io.github.shamrice.discchanger.config.ConfigurationBuilder;
 
 import java.io.IOException;
 
@@ -28,7 +26,7 @@ public class DiscChangerStarter {
         Configuration config = null;
 
         try {
-          config = ConfigurationFactory.build();
+          config = ConfigurationBuilder.build();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
