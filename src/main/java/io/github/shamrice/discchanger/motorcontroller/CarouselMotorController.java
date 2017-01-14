@@ -47,53 +47,16 @@ public class CarouselMotorController extends MotorController {
 
     @Override
     public void start() {
-
     }
 
     @Override
     public void stop() {
         SoftPwm.softPwmStop(motorPinA);
     }
-/*
-    public static synchronized void incrementDiscCount() {
-        discCount++;
-    }
 
-    public static synchronized void setIsRunning(boolean isRunningVal) {
-        isRunning = isRunningVal;
-    }
-    public static int getDiscCount(){
-        return discCount;
-    }
-
-    public static int getNumDiscsToSpin() {
-        return numDiscsToSpin;
-    }
-
-    public static boolean getIsRunning() {
-        return isRunning;
-    }
-
-    public static PinState getPinStateByName(String sensorName) {
-
-        return pinStates.get(sensorName);
-        /*
-        for (PinState pinState : pinStates) {
-            if (pinState.getName() == sensorName){
-                return pinState;
-            }
-        }
-
-        return null;
-    }
-*/
     public static synchronized void setPinStateByName(String sensorName, PinState newState) {
 
-    //    System.out.println("SENSORNAME: " + sensorName);
-     //   System.out.println("NEWSTATE: " + newState.getName());
-
         pinStates.replace(sensorName, newState);
-
         checkDiscTravelled();
     }
 
@@ -117,61 +80,52 @@ public class CarouselMotorController extends MotorController {
             isRunning = false;
         }
     }
-/*
-    public static Collection<PinState> getPinStates() {
-        System.out.println("NumPinStates " + pinStates.size());
-        System.out.println("isEmpty? " + pinStates.values().isEmpty());
 
-        PinState test = pinStates.get(Definitions.CAROUSEL_SENSOR_PIN1);
-        System.out.println(test.getValue() + " :::" + test.getName());
-
-        return pinStates.values();
-    }
-*/
     public void spinNumDiscs(int numDiscsToSpin) {
 
-        CarouselMotorController.numDiscsToSpin = numDiscsToSpin;
-        isRunning = true;
+        if (numDiscsToSpin > 0) {
+            CarouselMotorController.numDiscsToSpin = numDiscsToSpin;
+            isRunning = true;
 
-        double pwmValue = minSpinPwm;
-        boolean isMaxSpeed = false;
-        boolean isSlowed = false;
+            double pwmValue = minSpinPwm;
+            boolean isMaxSpeed = false;
+            boolean isSlowed = false;
 
-        double discToSlowAt = numDiscsToSpin * .80;
+            double discToSlowAt = numDiscsToSpin * .80;
 
-        pwmValue = (minSpinPwm + numDiscsToSpin) / 1.3;
-        if (pwmValue > maxSpinPwm)
-            pwmValue = maxSpinPwm;
+            pwmValue = (minSpinPwm + numDiscsToSpin) / 1.3;
+            if (pwmValue > maxSpinPwm)
+                pwmValue = maxSpinPwm;
 
-        try {
-            while (isRunning) {
+            try {
+                while (isRunning) {
 
-                /**
-                 * TODO - Move this to listener related method. Polling in while loop eats 100% CPU. Should just threadsleep.
-                 */
-                if (discCount > discToSlowAt) {
-                    pwmValue = 50;
-                    isSlowed = true;
-                    SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
-                }
-
-                if (!isMaxSpeed && !isSlowed) {
-
-                    for (int i = 0; i <= pwmValue; i++) {
-                        SoftPwm.softPwmWrite(motorPinA, i);
-                        if (discCount > discToSlowAt) {
-                            break;
-                        }
-                        Thread.sleep(25);
+                    /**
+                     * TODO - Move this to listener related method. Polling in while loop eats 100% CPU. Should just threadsleep.
+                     */
+                    if (discCount > discToSlowAt) {
+                        pwmValue = 50;
+                        isSlowed = true;
+                        SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
                     }
-                    isMaxSpeed = true;
+
+                    if (!isMaxSpeed && !isSlowed) {
+
+                        for (int i = 0; i <= pwmValue; i++) {
+                            SoftPwm.softPwmWrite(motorPinA, i);
+                            if (discCount > discToSlowAt) {
+                                break;
+                            }
+                            Thread.sleep(25);
+                        }
+                        isMaxSpeed = true;
+                    }
                 }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+            stop();
         }
-
-        stop();
     }
 }
