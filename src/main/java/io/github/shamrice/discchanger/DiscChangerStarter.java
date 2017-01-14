@@ -5,6 +5,8 @@ import io.github.shamrice.discchanger.config.ConfigurationFactory;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.motorcontroller.*;
 
+import java.io.IOException;
+
 /**
  * Created by Erik on 1/11/2017.
  */
@@ -23,13 +25,21 @@ public class DiscChangerStarter {
             System.out.println("Spinning " + numDiscsToSpin + " discs.");
         }
 
-        Configuration config = ConfigurationFactory.build();
+        Configuration config = null;
 
-        DiscChangerDevice discChangerDevice = DiscChangerDevice.getInstance();
-        discChangerDevice.setConfiguration(config);
+        try {
+          config = ConfigurationFactory.build();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
 
-        discChangerDevice.getCarouselMotorController().spinNumDiscs(numDiscsToSpin);
+        if (null != config) {
 
+            DiscChangerDevice discChangerDevice = DiscChangerDevice.getInstance();
+            discChangerDevice.setConfiguration(config);
+
+            discChangerDevice.rotateCarousel(numDiscsToSpin);
+        }
         System.exit(0);
     }
 }

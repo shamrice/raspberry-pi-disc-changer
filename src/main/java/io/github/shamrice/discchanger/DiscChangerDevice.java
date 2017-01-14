@@ -36,8 +36,8 @@ public class DiscChangerDevice {
         }
     }
 
-    public CarouselMotorController getCarouselMotorController() {
-        return carouselMotorController;
+    public void rotateCarousel(int numDiscs) {
+        carouselMotorController.spinNumDiscs(numDiscs);
     }
 
 

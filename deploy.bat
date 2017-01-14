@@ -5,7 +5,9 @@ SET tempFile=ftp.dat
 SET serverIp=192.168.2.250
 SET username=pi
 SET password=password
-SET jarLocation="C:\Erik-GitHub\raspberry-pi-disc-changer\raspberry-pi-disc-changer\out\artifacts\raspberry_pi_disc_changer_jar\raspberry-pi-disc-changer.jar"
+SET artifactsDirectory="C:\Erik-GitHub\raspberry-pi-disc-changer\raspberry-pi-disc-changer\out\artifacts\raspberry_pi_disc_changer_jar_and_config\"
+SET jarFilename="raspberry-pi-disc-changer.jar"
+SET configFilename="config.properties"
 SET destLocation=disc_changer
 
 REM generate temp ftp script
@@ -13,7 +15,8 @@ echo open %serverIp% > %tempFile%
 echo user %username% %password% >> %tempFile%
 echo binary >> %tempFile%
 echo cd %destLocation% >> %tempFile%
-echo put %jarLocation% >> %tempFile%
+echo put %artifactsDirectory%%jarFilename% >> %tempFile%
+echo put %artifactsDirectory%%configFilename% >> %tempFile%
 echo disconnect >> %tempFile%
 echo bye >> %tempFile%
 
