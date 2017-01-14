@@ -24,7 +24,6 @@ public class CarouselMotorController extends MotorController {
 
     private static int discCount = 0;
     private static int numDiscsToSpin = 0;
-    private static boolean isRunning = false;
     private static ConcurrentHashMap<String, PinState> pinStates = new ConcurrentHashMap<String, PinState>();
 
     public CarouselMotorController(MotorConfiguration motorConfiguration)  {
@@ -89,6 +88,7 @@ public class CarouselMotorController extends MotorController {
 
             CarouselMotorController.numDiscsToSpin = numDiscsToSpin;
             isRunning = true;
+            this.direction = direction;
 
             double pwmValue = minSpinPwm;
             boolean isMaxSpeed = false;
@@ -110,7 +110,7 @@ public class CarouselMotorController extends MotorController {
                     if (discCount > discToSlowAt) {
                         pwmValue = 50;
                         isSlowed = true;
-                        spinCarousel(direction, (int) pwmValue);
+                        spinCarousel((int) pwmValue);
                         //SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
                     }
 
@@ -119,7 +119,7 @@ public class CarouselMotorController extends MotorController {
                         for (int i = 0; i <= pwmValue; i++) {
 
                             //SoftPwm.softPwmWrite(motorPinA, i);
-                            spinCarousel(direction, i);
+                            spinCarousel(i);
                             if (discCount > discToSlowAt) {
                                 break;
                             }
@@ -139,7 +139,7 @@ public class CarouselMotorController extends MotorController {
         CarouselMotorController.discCount = 0;
     }
 
-    private void spinCarousel(Direction direction, int speed) {
+    private void spinCarousel(int speed) {
         switch(direction) {
             case FORWARD:
                 SoftPwm.softPwmWrite(motorPinA, speed);;

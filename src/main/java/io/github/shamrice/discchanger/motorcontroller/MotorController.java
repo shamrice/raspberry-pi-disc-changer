@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class MotorController {
 
-    protected boolean isRunning = false;
+    protected static boolean isRunning = false;
     protected Direction direction = Direction.FORWARD;
     protected int motorPinA;
     protected int motorPinB;
