@@ -2,6 +2,7 @@ package io.github.shamrice.discchanger;
 
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.ConfigurationBuilder;
+import io.github.shamrice.discchanger.motorcontroller.Direction;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class DiscChangerStarter {
      * Entry point.
      * @param args - command line arguments.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         int numDiscsToSpin = 0;
 
@@ -36,7 +37,14 @@ public class DiscChangerStarter {
             DiscChangerDevice discChangerDevice = DiscChangerDevice.getInstance();
             discChangerDevice.setConfiguration(config);
 
-            discChangerDevice.rotateCarousel(numDiscsToSpin);
+            /* Rotate in one direction and then back to start position */
+            discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.BACKWARD);
+
+            System.out.println("Done... sleeping 2 second");
+            Thread.sleep(2000);
+
+            discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.FORWARD);
+
         }
         System.exit(0);
     }

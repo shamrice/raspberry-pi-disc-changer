@@ -3,6 +3,7 @@ package io.github.shamrice.discchanger;
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.motorcontroller.CarouselMotorController;
+import io.github.shamrice.discchanger.motorcontroller.Direction;
 
 /**
  * Created by Erik on 1/14/2017.
@@ -36,8 +37,8 @@ public class DiscChangerDevice {
         }
     }
 
-    public void rotateCarousel(int numDiscs) {
-        carouselMotorController.spinNumDiscs(numDiscs);
+    public void rotateCarousel(int numDiscs, Direction direction) {
+        carouselMotorController.spinNumDiscs(numDiscs, direction);
     }
 
 

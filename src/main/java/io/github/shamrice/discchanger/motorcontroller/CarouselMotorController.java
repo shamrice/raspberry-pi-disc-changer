@@ -36,7 +36,6 @@ public class CarouselMotorController extends MotorController {
         //set initial pin state for all sensors.
         for(GpioPinDigitalInput sensorInput : super.sensorInputs) {
             pinStates.put(sensorInput.getName(), sensorInput.getState());
-
             sensorInput.addListener(new CarouselSensorListener(sensorInput.getName()));
         }
 
@@ -51,7 +50,8 @@ public class CarouselMotorController extends MotorController {
 
     @Override
     public void stop() {
-        SoftPwm.softPwmStop(motorPinA);
+        SoftPwm.softPwmWrite(motorPinA, 0);
+        SoftPwm.softPwmWrite(motorPinB, 0);
     }
 
     public static synchronized void setPinStateByName(String sensorName, PinState newState) {
@@ -81,9 +81,12 @@ public class CarouselMotorController extends MotorController {
         }
     }
 
-    public void spinNumDiscs(int numDiscsToSpin) {
+    public void spinNumDiscs(int numDiscsToSpin, Direction direction) {
 
         if (numDiscsToSpin > 0) {
+
+            if (numDiscsToSpin > 200) numDiscsToSpin = 200;
+
             CarouselMotorController.numDiscsToSpin = numDiscsToSpin;
             isRunning = true;
 
@@ -91,9 +94,10 @@ public class CarouselMotorController extends MotorController {
             boolean isMaxSpeed = false;
             boolean isSlowed = false;
 
-            double discToSlowAt = numDiscsToSpin * .80;
+            //equation gets weird over 200, so carousel is limited to one full spin.
+            double discToSlowAt = numDiscsToSpin * (.80 * (1 + (numDiscsToSpin * 0.001)));
 
-            pwmValue = (minSpinPwm + numDiscsToSpin) / 1.3;
+            pwmValue = (minSpinPwm + numDiscsToSpin) / 1.2;
             if (pwmValue > maxSpinPwm)
                 pwmValue = maxSpinPwm;
 
@@ -106,13 +110,16 @@ public class CarouselMotorController extends MotorController {
                     if (discCount > discToSlowAt) {
                         pwmValue = 50;
                         isSlowed = true;
-                        SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
+                        spinCarousel(direction, (int) pwmValue);
+                        //SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
                     }
 
                     if (!isMaxSpeed && !isSlowed) {
 
                         for (int i = 0; i <= pwmValue; i++) {
-                            SoftPwm.softPwmWrite(motorPinA, i);
+
+                            //SoftPwm.softPwmWrite(motorPinA, i);
+                            spinCarousel(direction, i);
                             if (discCount > discToSlowAt) {
                                 break;
                             }
@@ -126,6 +133,20 @@ public class CarouselMotorController extends MotorController {
             }
 
             stop();
+        }
+
+        CarouselMotorController.numDiscsToSpin = 0;
+        CarouselMotorController.discCount = 0;
+    }
+
+    private void spinCarousel(Direction direction, int speed) {
+        switch(direction) {
+            case FORWARD:
+                SoftPwm.softPwmWrite(motorPinA, speed);;
+                break;
+            case BACKWARD:
+                SoftPwm.softPwmWrite(motorPinB, speed);
+                break;
         }
     }
 }
