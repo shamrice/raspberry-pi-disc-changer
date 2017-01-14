@@ -11,4 +11,7 @@ public final class Definitions {
     public static final String CAROUSEL_MOTOR_CONTROLLER = "CAROUSEL_MOTOR_CONTROLLER";
     public static final String DOOR_MOTOR_CONTROLLER = "DOOR_MOTOR_CONTROLLER";
     public static final String DISC_DRIVE_MOTOR_CONTROLLER = "DISC_DRIVE_MOTOR_CONTROLLER";
+
+    public static final String CAROUSEL_SENSOR_PIN1 =  "CAROUSEL_SENSOR_PIN1";
+    public static final String CAROUSEL_SENSOR_PIN2 =  "CAROUSEL_SENSOR_PIN2";
 }

@@ -1,12 +1,11 @@
 package io.github.shamrice.discchanger;
 
-import com.pi4j.wiringpi.Gpio;
-import com.pi4j.wiringpi.SoftPwm;
+import io.github.shamrice.discchanger.config.Configuration;
+import io.github.shamrice.discchanger.config.ConfigurationFactory;
+import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.motorcontroller.*;
 
 import com.pi4j.io.gpio.*;
-import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
-import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 /**
  * Created by Erik on 1/11/2017.
@@ -37,6 +36,12 @@ public class DiscChangerStarter {
             System.out.println("Spinning " + numDiscsToSpin + " discs.");
         }
 
+        Configuration config = ConfigurationFactory.build();
+        CarouselMotorController carouselMotorController = new CarouselMotorController(config.getMotorConfigurationByName(Definitions.CAROUSEL_MOTOR_CONTROLLER));
+
+        carouselMotorController.spinNumDiscs(numDiscsToSpin);
+
+/*
         final GpioController gpioController = GpioFactory.getInstance();
 
         SoftPwm.softPwmCreate(motorPwmPin, minPwn, maxPwm);
@@ -155,6 +160,6 @@ public class DiscChangerStarter {
         }
 
         SoftPwm.softPwmStop(motorPwmPin);
-
+*/
     }
 }

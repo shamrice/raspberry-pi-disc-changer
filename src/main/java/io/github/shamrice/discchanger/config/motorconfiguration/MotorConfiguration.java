@@ -2,6 +2,7 @@ package io.github.shamrice.discchanger.config.motorconfiguration;
 
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ public class MotorConfiguration {
 
     private int motorPinA;
     private int motorPinB;
-    private List<GpioPinDigitalInput> sensorInputs;
+    private List<GpioPinDigitalInput> sensorInputs = new ArrayList<GpioPinDigitalInput>();
     private String motorName;
 
     public MotorConfiguration() {}

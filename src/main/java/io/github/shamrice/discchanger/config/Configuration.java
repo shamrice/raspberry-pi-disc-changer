@@ -2,6 +2,7 @@ package io.github.shamrice.discchanger.config;
 
 import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public class Configuration {
 
-    private List<MotorConfiguration> motorConfigurations;
+    private List<MotorConfiguration> motorConfigurations = new ArrayList<MotorConfiguration>();
 
     public void setMotorConfiguration(List<MotorConfiguration> motorConfigurations) {
         this.motorConfigurations = motorConfigurations;

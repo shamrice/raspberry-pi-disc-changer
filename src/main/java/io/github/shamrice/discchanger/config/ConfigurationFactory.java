@@ -12,16 +12,14 @@ import java.util.List;
  */
 public class ConfigurationFactory {
 
-    public Configuration build() {
+    public static Configuration build() {
 
         Configuration configuration = new Configuration();
-
-        GpioController gpioController = GpioFactory.getInstance();
-
+        final GpioController gpioController = GpioFactory.getInstance();
 
         /* Carousel Motor Configuration */
-        GpioPinDigitalInput carouselMotorSensorPinA = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_21, "CarouselSensorPin1", PinPullResistance.PULL_DOWN);
-        GpioPinDigitalInput carouselMotorSensorPinB = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_22, "CarouselSensorPin2", PinPullResistance.PULL_DOWN);
+        GpioPinDigitalInput carouselMotorSensorPinA = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_21, Definitions.CAROUSEL_SENSOR_PIN1, PinPullResistance.PULL_DOWN);
+        GpioPinDigitalInput carouselMotorSensorPinB = gpioController.provisionDigitalInputPin(RaspiPin.GPIO_22, Definitions.CAROUSEL_SENSOR_PIN2, PinPullResistance.PULL_DOWN);
 
         List<GpioPinDigitalInput> carouselSensors = new ArrayList<GpioPinDigitalInput>();
         carouselSensors.add(carouselMotorSensorPinA);

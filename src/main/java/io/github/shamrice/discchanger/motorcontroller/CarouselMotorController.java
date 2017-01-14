@@ -7,10 +7,12 @@ package io.github.shamrice.discchanger.motorcontroller;
 import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.wiringpi.SoftPwm;
-import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
+import io.github.shamrice.discchanger.motorcontroller.sensorListeners.CarouselSensorListener;
+
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * Concrete class for disc carousel motor controls.
@@ -20,9 +22,10 @@ public class CarouselMotorController extends MotorController {
     final int minSpinPwm = 50;
     final int maxSpinPwm = 190;
 
-    private int discCount = 0;
-
-    private List<PinState> prevPinStates = new ArrayList<PinState>();
+    private static int discCount = 0;
+    private static int numDiscsToSpin = 0;
+    private static boolean isRunning = false;
+    private static ConcurrentHashMap<String, PinState> pinStates = new ConcurrentHashMap<String, PinState>();
 
     public CarouselMotorController(MotorConfiguration motorConfiguration)  {
         super(motorConfiguration);
@@ -32,7 +35,13 @@ public class CarouselMotorController extends MotorController {
 
         //set initial pin state for all sensors.
         for(GpioPinDigitalInput sensorInput : super.sensorInputs) {
-            prevPinStates.add(sensorInput.getState());
+            pinStates.put(sensorInput.getName(), sensorInput.getState());
+
+            sensorInput.addListener(new CarouselSensorListener(sensorInput.getName()));
+        }
+
+        for(PinState states : pinStates.values()) {
+            System.out.println(states.getName() + " : " + states.getValue());
         }
     }
 
@@ -43,10 +52,87 @@ public class CarouselMotorController extends MotorController {
 
     @Override
     public void stop() {
-
+        SoftPwm.softPwmStop(motorPinA);
+    }
+/*
+    public static synchronized void incrementDiscCount() {
+        discCount++;
     }
 
+    public static synchronized void setIsRunning(boolean isRunningVal) {
+        isRunning = isRunningVal;
+    }
+    public static int getDiscCount(){
+        return discCount;
+    }
+
+    public static int getNumDiscsToSpin() {
+        return numDiscsToSpin;
+    }
+
+    public static boolean getIsRunning() {
+        return isRunning;
+    }
+
+    public static PinState getPinStateByName(String sensorName) {
+
+        return pinStates.get(sensorName);
+        /*
+        for (PinState pinState : pinStates) {
+            if (pinState.getName() == sensorName){
+                return pinState;
+            }
+        }
+
+        return null;
+    }
+*/
+    public static synchronized void setPinStateByName(String sensorName, PinState newState) {
+
+    //    System.out.println("SENSORNAME: " + sensorName);
+     //   System.out.println("NEWSTATE: " + newState.getName());
+
+        pinStates.replace(sensorName, newState);
+
+        checkDiscTravelled();
+    }
+
+    private static synchronized void checkDiscTravelled() {
+
+        boolean allHigh = true;
+        for (PinState pinState: pinStates.values()) {
+            System.out.print(":" + pinState.getValue() + " ");
+            if (pinState.isLow()) {
+                allHigh = false;
+            }
+        }
+        if (allHigh) {
+            discCount++;
+        }
+
+        System.out.print(discCount + "\n");
+
+        if (discCount >= numDiscsToSpin) {
+            System.out.println("STOP");
+            isRunning = false;
+        }
+    }
+/*
+    public static Collection<PinState> getPinStates() {
+        System.out.println("NumPinStates " + pinStates.size());
+        System.out.println("isEmpty? " + pinStates.values().isEmpty());
+
+        PinState test = pinStates.get(Definitions.CAROUSEL_SENSOR_PIN1);
+        System.out.println(test.getValue() + " :::" + test.getName());
+
+        return pinStates.values();
+    }
+*/
     public void spinNumDiscs(int numDiscsToSpin) {
+
+        CarouselMotorController.numDiscsToSpin = numDiscsToSpin;
+        isRunning = true;
+
         double pwmValue = minSpinPwm;
         boolean isMaxSpeed = false;
         boolean isSlowed = false;
@@ -60,6 +146,9 @@ public class CarouselMotorController extends MotorController {
         try {
             while (isRunning) {
 
+                /**
+                 * TODO - Move this to listener related method. Polling in while loop eats 100% CPU. Should just threadsleep.
+                 */
                 if (discCount > discToSlowAt) {
                     pwmValue = 50;
                     isSlowed = true;
@@ -78,9 +167,11 @@ public class CarouselMotorController extends MotorController {
                     isMaxSpeed = true;
                 }
             }
-            Thread.sleep(1000);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        stop();
     }
 }
