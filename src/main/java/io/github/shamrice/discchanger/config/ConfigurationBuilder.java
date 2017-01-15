@@ -43,7 +43,10 @@ public class ConfigurationBuilder {
         Pin carouselSensorPin2 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.CAROUSEL_SENSOR2_PIN));
 
         GpioPinDigitalInput carouselMotorSensorPinA = gpioController.provisionDigitalInputPin(carouselSensorPin1, Definitions.CAROUSEL_SENSOR1_PIN, PinPullResistance.PULL_DOWN);
+        carouselMotorSensorPinA.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
+
         GpioPinDigitalInput carouselMotorSensorPinB = gpioController.provisionDigitalInputPin(carouselSensorPin2, Definitions.CAROUSEL_SENSOR2_PIN, PinPullResistance.PULL_DOWN);
+        carouselMotorSensorPinB.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
 
         List<GpioPinDigitalInput> carouselSensors = new ArrayList<GpioPinDigitalInput>();
         carouselSensors.add(carouselMotorSensorPinA);

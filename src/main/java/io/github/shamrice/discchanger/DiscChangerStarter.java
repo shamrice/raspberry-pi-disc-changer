@@ -45,7 +45,10 @@ public class DiscChangerStarter {
 
             discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.FORWARD);
 
+            discChangerDevice.shutdown();
+
         }
+
         System.exit(0);
     }
 }

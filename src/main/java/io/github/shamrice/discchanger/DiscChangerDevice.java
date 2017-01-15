@@ -1,5 +1,7 @@
 package io.github.shamrice.discchanger;
 
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.motorcontroller.CarouselMotorController;
@@ -35,6 +37,11 @@ public class DiscChangerDevice {
         if (null != configuration) {
             carouselMotorController = new CarouselMotorController(configuration.getMotorConfigurationByName(Definitions.CAROUSEL_MOTOR_CONTROLLER));
         }
+    }
+
+    public void shutdown() {
+        GpioController gpioController = GpioFactory.getInstance();
+        gpioController.shutdown();
     }
 
     public void rotateCarousel(int numDiscs, Direction direction) {

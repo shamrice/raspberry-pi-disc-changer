@@ -7,12 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5ea5296-b62a-4d24-920d-df95035c80d1" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/raspberry-pi-disc-changer.iml" afterPath="$PROJECT_DIR$/raspberry-pi-disc-changer.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/CarouselMotorController.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/CarouselMotorController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/MotorController.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/MotorController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/config/definitions/DefinitionsTests.java" afterPath="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/config/definitions/DefinitionsTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" />
     </list>
     <ignored path="DiscChanger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,8 +35,8 @@
       <file leaf-file-name="DiscChangerStarter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -77,8 +74,20 @@
       <file leaf-file-name="DiscChangerDevice.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" column="64" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
+            <state relative-caret-position="289">
+              <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CarouselSensorListener.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/sensorListeners/CarouselSensorListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="145">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -125,22 +134,12 @@
       <file leaf-file-name="ConfigurationBuilder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
+            <state relative-caret-position="136">
+              <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2005#2026#0" expanded="true" />
+                <element signature="e#2196#2217#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -186,15 +185,16 @@
         <option value="$PROJECT_DIR$/deploy.bat" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/definitions/Definitions.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationFactory.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" />
         <option value="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/config/definitions/DefinitionsTests.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/config/motorConfiguration/MotorConfigurationTests.java" />
         <option value="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/motorcontroller/MotorControllerTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/MotorController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/CarouselMotorController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" />
       </list>
     </option>
   </component>
@@ -1062,7 +1062,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1484150242403</updated>
-      <workItem from="1484150250520" duration="46663000" />
+      <workItem from="1484150250520" duration="47615000" />
     </task>
     <servers />
   </component>
@@ -1099,7 +1099,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46663000" />
+    <option name="totallyTimeSpent" value="47615000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="24" width="1448" height="880" extended-state="6" />
@@ -1219,8 +1219,8 @@
         <state relative-caret-position="102">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#328#348#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#328#348#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1230,16 +1230,6 @@
         <state relative-caret-position="119">
           <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/sensorListeners/CarouselSensorListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1300,32 +1290,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="30" column="48" selection-start-line="30" selection-start-column="48" selection-end-line="30" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2005#2026#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/Direction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1370,10 +1339,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/sensorListeners/CarouselSensorListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="47" column="39" selection-start-line="47" selection-start-column="39" selection-end-line="47" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2196#2217#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="40" column="64" selection-start-line="40" selection-start-column="64" selection-end-line="40" selection-end-column="64" />
+        <state relative-caret-position="289">
+          <caret line="43" column="34" selection-start-line="43" selection-start-column="34" selection-end-line="43" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
