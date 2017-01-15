@@ -18,37 +18,72 @@ public class DiscChangerStarter {
     public static void main(String[] args) throws InterruptedException {
 
         int numDiscsToSpin = 0;
+        boolean displayInfo = false;
+        boolean stop = false;
 
         if (args.length == 1) {
-            numDiscsToSpin = Integer.parseInt(args[0]);
-            System.out.println("Spinning " + numDiscsToSpin + " discs.");
-        }
 
-        Configuration config = null;
+            if (args[0].equals("--info") || args[0].equals("-i"))
+                displayInfo = true;
+            else if (args[0].equals("--stop") || args[0].equals("-s"))
+                stop = true;
+            else {
+                try {
+                    numDiscsToSpin = Integer.parseInt(args[0]);
+                    System.out.println("Spinning " + numDiscsToSpin + " discs.");
+                } catch (NumberFormatException numFmtEx) {
+                    System.out.println("Not a number.");
+                    numDiscsToSpin = -1;
+                    printUsage();
+                }
 
-        try {
-          config = ConfigurationBuilder.build();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+            }
 
-        if (null != config) {
 
-            DiscChangerDevice discChangerDevice = DiscChangerDevice.getInstance();
-            discChangerDevice.setConfiguration(config);
+            try {
+                Configuration config = null;
+                config = ConfigurationBuilder.build();
 
-            /* Rotate in one direction and then back to start position */
-            discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.BACKWARD);
+                if (null != config) {
 
-            System.out.println("Done... sleeping 2 second");
-            Thread.sleep(2000);
+                    DiscChangerDevice discChangerDevice = DiscChangerDevice.getInstance();
+                    discChangerDevice.setConfiguration(config);
 
-            discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.FORWARD);
+                    if (displayInfo)
+                        discChangerDevice.printDeviceInfo();
+                    else if (stop)
+                        discChangerDevice.stopCarousel();
 
-            discChangerDevice.shutdown();
+                    else if (numDiscsToSpin > 0) {
 
+                    /* Rotate in one direction and then back to start position */
+                        discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.BACKWARD);
+
+                        System.out.println("Done... sleeping 2 second");
+                        Thread.sleep(2000);
+
+                        discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.FORWARD);
+                    }
+
+                    discChangerDevice.shutdown();
+
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else {
+            printUsage();
         }
 
         System.exit(0);
+    }
+
+    public static void printUsage() {
+        System.out.println("Usages:");
+        System.out.println("\t--info -i\tDisplay device information.");
+        System.out.println("\t--stop -s\tStop carousel motor.");
+        System.out.println("\t--help -h\tDisplay help.");
+        System.out.println("\t{NUMBER} \tSpin number of numbers specified.");
+        System.out.println();
     }
 }
