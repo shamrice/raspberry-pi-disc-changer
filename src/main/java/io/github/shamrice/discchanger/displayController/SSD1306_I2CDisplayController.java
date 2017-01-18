@@ -4,6 +4,7 @@ import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import io.github.shamrice.discchanger.DiscChangerDevice;
+import io.github.shamrice.discchanger.config.displayConfiguration.DisplayConfiguration;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -60,12 +61,17 @@ public class SSD1306_I2CDisplayController implements DisplayController{
     private BufferedImage image;
     private Graphics2D graphics;
     private Font font;
+    private DisplayConfiguration config;
     
-    public SSD1306_I2CDisplayController() throws IOException, I2CFactory.UnsupportedBusNumberException {
+    public SSD1306_I2CDisplayController(DisplayConfiguration displayConfiguration) throws IOException, I2CFactory.UnsupportedBusNumberException {
+
+        this.config = displayConfiguration;
 
         // get the I2C bus to communicate on
-        I2CBus i2c = I2CFactory.getInstance(I2CBus.BUS_1);
-        device = i2c.getDevice(SSD1306_I2C_ADDRESS);
+        I2CBus i2c = I2CFactory.getInstance(this.config.getI2cBus());
+        device = i2c.getDevice(this.config.getI2cAddress());
+     //   I2CBus i2c = I2CFactory.getInstance(I2CBus.BUS_1);
+     //   device = i2c.getDevice(SSD1306_I2C_ADDRESS);
 
         command(SSD1306_DISPLAYOFF);
         command(SSD1306_SETDISPLAYCLOCKDIV);
@@ -175,7 +181,7 @@ public class SSD1306_I2CDisplayController implements DisplayController{
 
             clearScreen();
 
-            image = ImageIO.read(new File("boot.bmp"));
+            image = ImageIO.read(new File(this.config.getBootImageLocation()));
             graphics = image.createGraphics();
             //graphics.setFont(new Font("Monospaced", Font.PLAIN, 20));
             graphics.setColor(Color.WHITE);

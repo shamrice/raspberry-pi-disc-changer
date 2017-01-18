@@ -2,6 +2,7 @@ package io.github.shamrice.discchanger.config;
 
 import com.pi4j.io.gpio.*;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
+import io.github.shamrice.discchanger.config.displayConfiguration.DisplayConfiguration;
 import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
 import io.github.shamrice.discchanger.displayController.DisplayController;
 import io.github.shamrice.discchanger.displayController.SSD1306_I2CDisplayController;
@@ -33,7 +34,7 @@ public class ConfigurationBuilder {
         /* Add motor configurations to config */
         configuration.addMotorConfiguration(buildCarouselMotorConfiguration());
         configuration.addMotorConfiguration(buildDoorMotorConfiguration());
-        configuration.setDisplayController(buildDisplayControllerConfiguration());
+        configuration.setDisplayConfiguration(buildDisplayConfiguration());
 
         return configuration;
     }
@@ -95,16 +96,22 @@ public class ConfigurationBuilder {
         return doorMotorConfiguration;
     }
 
-    public static DisplayController buildDisplayControllerConfiguration()  {
-        DisplayController displayController = null;
+    public static DisplayConfiguration buildDisplayConfiguration()  {
+        DisplayConfiguration displayConfiguration = null;
 
         try {
-            displayController = new SSD1306_I2CDisplayController();
+
+            int i2cAddress = Integer.parseInt(configProperties.getProperty(Definitions.DISPLAY_I2C_ADDRESS));
+            int i2cBus = Integer.parseInt(configProperties.getProperty(Definitions.DISPLAY_I2C_BUS));
+            String bootImage = configProperties.getProperty(Definitions.DISPLAY_BOOT_IMAGE_LOCATION);
+
+            displayConfiguration = new DisplayConfiguration(i2cAddress, i2cBus, bootImage);
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return displayController;
+        return displayConfiguration;
     }
 
 }

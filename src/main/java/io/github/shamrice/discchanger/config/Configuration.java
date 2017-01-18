@@ -1,5 +1,6 @@
 package io.github.shamrice.discchanger.config;
 
+import io.github.shamrice.discchanger.config.displayConfiguration.DisplayConfiguration;
 import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
 import io.github.shamrice.discchanger.displayController.DisplayController;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class Configuration {
 
     private List<MotorConfiguration> motorConfigurations = new ArrayList<MotorConfiguration>();
-    private DisplayController displayController;
+    private DisplayConfiguration displayConfiguration;
 
     public void setMotorConfiguration(List<MotorConfiguration> motorConfigurations) {
         this.motorConfigurations = motorConfigurations;
@@ -39,12 +40,12 @@ public class Configuration {
         return motorConfigurationResult;
     }
 
-    public void setDisplayController(DisplayController displayController) {
-        this.displayController = displayController;
+    public void setDisplayConfiguration(DisplayConfiguration displayConfiguration){
+        this.displayConfiguration = displayConfiguration;
     }
 
-    public DisplayController getDisplayController() {
-        return this.displayController;
+    public DisplayConfiguration getDisplayConfiguration() {
+        return this.displayConfiguration;
     }
 
 }

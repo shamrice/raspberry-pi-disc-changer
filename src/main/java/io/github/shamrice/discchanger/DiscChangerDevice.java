@@ -3,6 +3,7 @@ package io.github.shamrice.discchanger;
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
 
+import com.pi4j.io.i2c.I2CFactory;
 import com.pi4j.platform.PlatformManager;
 import com.pi4j.system.NetworkInfo;
 import com.pi4j.system.SystemInfo;
@@ -11,6 +12,7 @@ import com.pi4j.system.SystemInfo;
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.displayController.DisplayController;
+import io.github.shamrice.discchanger.displayController.SSD1306_I2CDisplayController;
 import io.github.shamrice.discchanger.motorcontroller.CarouselMotorController;
 import io.github.shamrice.discchanger.motorcontroller.Direction;
 import io.github.shamrice.discchanger.motorcontroller.DoorMotorController;
@@ -40,7 +42,7 @@ public class DiscChangerDevice {
         return instance;
     }
 
-    public void setConfiguration (Configuration configuration) {
+    public void setConfiguration (Configuration configuration) throws IOException, I2CFactory.UnsupportedBusNumberException {
         this.configuration = configuration;
 
         //reconfigure with new configuration.
@@ -48,11 +50,11 @@ public class DiscChangerDevice {
     }
 
     /** TODO - null checking **/
-    private void configure() {
+    private void configure() throws IOException, I2CFactory.UnsupportedBusNumberException {
         if (null != configuration) {
             carouselMotorController = new CarouselMotorController(configuration.getMotorConfigurationByName(Definitions.CAROUSEL_MOTOR_CONTROLLER));
             doorMotorController = new DoorMotorController(configuration.getMotorConfigurationByName(Definitions.DOOR_MOTOR_CONTROLLER));
-            displayController = configuration.getDisplayController();
+            displayController = new SSD1306_I2CDisplayController(configuration.getDisplayConfiguration());
         }
         displayController.drawBootScreen();
     }

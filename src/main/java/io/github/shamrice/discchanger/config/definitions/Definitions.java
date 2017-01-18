@@ -25,4 +25,8 @@ public final class Definitions {
     public static final String DOOR_SENSOR_PIN1 = "DOOR_SENSOR_PIN1";
     public static final String DOOR_SENSOR_PIN2 = "DOOR_SENSOR_PIN2";
 
+    public static final String DISPLAY_I2C_ADDRESS = "DISPLAY_I2C_ADDRESS";
+    public static final String DISPLAY_I2C_BUS = "DISPLAY_I2C_BUS";
+    public static final String DISPLAY_BOOT_IMAGE_LOCATION = "DISPLAY_BOOT_IMAGE_LOCATION";
+
 }
