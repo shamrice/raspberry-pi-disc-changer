@@ -67,7 +67,7 @@ public class DiscChangerDevice {
 
     public void moveDoor(Direction direction) throws InterruptedException {
         System.out.println("Moving door");
-        doorMotorController.setDirection(direction);
+        doorMotorController.setStaticDirection(direction);
         doorMotorController.start();
         //doorMotorController.stop();
     }

@@ -22,6 +22,7 @@ public final class Definitions {
 
     public static final String DOOR_MOTOR_CONTROLLER_PIN1 = "DOOR_MOTOR_CONTROLLER_PIN1";
     public static final String DOOR_MOTOR_CONTROLLER_PIN2 = "DOOR_MOTOR_CONTROLLER_PIN2";
-    public static final String DOOR_SENSOR1_PIN = "DOOR_SENSOR1_PIN";
+    public static final String DOOR_SENSOR_PIN1 = "DOOR_SENSOR_PIN1";
+    public static final String DOOR_SENSOR_PIN2 = "DOOR_SENSOR_PIN2";
 
 }

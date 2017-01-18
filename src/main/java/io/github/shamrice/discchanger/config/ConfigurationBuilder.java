@@ -67,13 +67,20 @@ public class ConfigurationBuilder {
         MotorConfiguration doorMotorConfiguration = null;
 
         /* door motor sensor */
-        Pin doorSensorPin1 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.DOOR_SENSOR1_PIN));
+        Pin doorSensorPin1 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.DOOR_SENSOR_PIN1));
+        Pin doorSensorPin2 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.DOOR_SENSOR_PIN2));
 
-        GpioPinDigitalInput doorMotorSensorPinA = gpioController.provisionDigitalInputPin(doorSensorPin1, Definitions.DOOR_SENSOR1_PIN, PinPullResistance.PULL_DOWN);
+        System.out.println("Pin1: " + doorSensorPin1.getAddress() + " Pin2: " + doorSensorPin2.getAddress());
+
+        GpioPinDigitalInput doorMotorSensorPinA = gpioController.provisionDigitalInputPin(doorSensorPin1, Definitions.DOOR_SENSOR_PIN1, PinPullResistance.PULL_DOWN);
         doorMotorSensorPinA.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
+
+        GpioPinDigitalInput doorMotorSensorPinB = gpioController.provisionDigitalInputPin(doorSensorPin2, Definitions.DOOR_SENSOR_PIN2, PinPullResistance.PULL_DOWN);
+        doorMotorSensorPinB.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
 
         List<GpioPinDigitalInput> doorSensors = new ArrayList<GpioPinDigitalInput>();
         doorSensors.add(doorMotorSensorPinA);
+        doorSensors.add(doorMotorSensorPinB);
 
         /* set up door motor pin information */
         int doorMotorPin1 = Integer.parseInt(configProperties.getProperty(Definitions.DOOR_MOTOR_CONTROLLER_PIN1));
@@ -82,9 +89,7 @@ public class ConfigurationBuilder {
         /* create configuration */
         doorMotorConfiguration = new MotorConfiguration(Definitions.DOOR_MOTOR_CONTROLLER, doorMotorPin1, doorMotorPin2, doorSensors);
 
-
         return doorMotorConfiguration;
     }
-
 
 }
