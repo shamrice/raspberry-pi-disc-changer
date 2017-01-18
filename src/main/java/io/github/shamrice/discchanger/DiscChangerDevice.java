@@ -12,6 +12,7 @@ import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.motorcontroller.CarouselMotorController;
 import io.github.shamrice.discchanger.motorcontroller.Direction;
+import io.github.shamrice.discchanger.motorcontroller.DoorMotorController;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -23,6 +24,7 @@ public class DiscChangerDevice {
 
     private Configuration configuration;
     private CarouselMotorController carouselMotorController;
+    private DoorMotorController doorMotorController;
     private static DiscChangerDevice instance = null;
 
     private DiscChangerDevice() {}
@@ -42,9 +44,11 @@ public class DiscChangerDevice {
         instance.configure();
     }
 
+    /** TODO - null checking **/
     private void configure() {
         if (null != configuration) {
             carouselMotorController = new CarouselMotorController(configuration.getMotorConfigurationByName(Definitions.CAROUSEL_MOTOR_CONTROLLER));
+            doorMotorController = new DoorMotorController(configuration.getMotorConfigurationByName(Definitions.DOOR_MOTOR_CONTROLLER));
         }
     }
 
@@ -61,6 +65,16 @@ public class DiscChangerDevice {
         carouselMotorController.stop();
     }
 
+    public void moveDoor(Direction direction) throws InterruptedException {
+        System.out.println("Moving door");
+        doorMotorController.setDirection(direction);
+        doorMotorController.start();
+        //doorMotorController.stop();
+    }
+
+    public void stopDoor() {
+        doorMotorController.stop();
+    }
     public void printDeviceInfo() throws IOException, InterruptedException, ParseException {
 
         /** Debug info copied from pi4j's website. **/

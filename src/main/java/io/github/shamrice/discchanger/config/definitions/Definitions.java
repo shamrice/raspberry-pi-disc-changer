@@ -16,6 +16,12 @@ public final class Definitions {
 
     public static final String CAROUSEL_SENSOR1_PIN =  "CAROUSEL_SENSOR1_PIN";
     public static final String CAROUSEL_SENSOR2_PIN =  "CAROUSEL_SENSOR2_PIN";
+    public static final String CAROUSEL_SENSOR3_PIN =  "CAROUSEL_SENSOR3_PIN";
     public static final String CAROUSEL_MOTOR_CONTROLLER_PIN1 = "CAROUSEL_MOTOR_CONTROLLER_PIN1";
     public static final String CAROUSEL_MOTOR_CONTROLLER_PIN2 = "CAROUSEL_MOTOR_CONTROLLER_PIN2";
+
+    public static final String DOOR_MOTOR_CONTROLLER_PIN1 = "DOOR_MOTOR_CONTROLLER_PIN1";
+    public static final String DOOR_MOTOR_CONTROLLER_PIN2 = "DOOR_MOTOR_CONTROLLER_PIN2";
+    public static final String DOOR_SENSOR1_PIN = "DOOR_SENSOR1_PIN";
+
 }

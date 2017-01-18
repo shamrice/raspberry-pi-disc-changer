@@ -30,6 +30,7 @@ public class ConfigurationBuilder {
 
         /* Add motor configurations to config */
         configuration.addMotorConfiguration(buildCarouselMotorConfiguration());
+        configuration.addMotorConfiguration(buildDoorMotorConfiguration());
 
         return configuration;
     }
@@ -60,6 +61,29 @@ public class ConfigurationBuilder {
         carouselMotorConfiguration = new MotorConfiguration(Definitions.CAROUSEL_MOTOR_CONTROLLER, carouselMotorPin1, carouselMotorPin2, carouselSensors);
 
         return carouselMotorConfiguration;
+    }
+
+    public static MotorConfiguration buildDoorMotorConfiguration() {
+        MotorConfiguration doorMotorConfiguration = null;
+
+        /* door motor sensor */
+        Pin doorSensorPin1 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.DOOR_SENSOR1_PIN));
+
+        GpioPinDigitalInput doorMotorSensorPinA = gpioController.provisionDigitalInputPin(doorSensorPin1, Definitions.DOOR_SENSOR1_PIN, PinPullResistance.PULL_DOWN);
+        doorMotorSensorPinA.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
+
+        List<GpioPinDigitalInput> doorSensors = new ArrayList<GpioPinDigitalInput>();
+        doorSensors.add(doorMotorSensorPinA);
+
+        /* set up door motor pin information */
+        int doorMotorPin1 = Integer.parseInt(configProperties.getProperty(Definitions.DOOR_MOTOR_CONTROLLER_PIN1));
+        int doorMotorPin2 = Integer.parseInt(configProperties.getProperty(Definitions.DOOR_MOTOR_CONTROLLER_PIN2));
+
+        /* create configuration */
+        doorMotorConfiguration = new MotorConfiguration(Definitions.DOOR_MOTOR_CONTROLLER, doorMotorPin1, doorMotorPin2, doorSensors);
+
+
+        return doorMotorConfiguration;
     }
 
 
