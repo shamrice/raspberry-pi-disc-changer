@@ -19,8 +19,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class CarouselMotorController extends MotorController {
 
-    final int minSpinPwm = 50;
-    final int maxSpinPwm = 190;
+    final int minSpinPwm = 40;
+    final int maxSpinPwm = 170;
 
     private static int discCount = 0;
     private static int numDiscsToSpin = 0;
@@ -95,9 +95,9 @@ public class CarouselMotorController extends MotorController {
             boolean isSlowed = false;
 
             //equation gets weird over 200, so carousel is limited to one full spin.
-            double discToSlowAt = numDiscsToSpin * (.80 * (1 + (numDiscsToSpin * 0.001)));
+            double discToSlowAt = numDiscsToSpin * (.80);// * (1 + (numDiscsToSpin * 0.001)));
 
-            pwmValue = (minSpinPwm + numDiscsToSpin) / 1.2;
+            pwmValue = (minSpinPwm + numDiscsToSpin) / 1.3;
             if (pwmValue > maxSpinPwm)
                 pwmValue = maxSpinPwm;
 
@@ -108,7 +108,7 @@ public class CarouselMotorController extends MotorController {
                      * TODO - Move this to listener related method. Polling in while loop eats 100% CPU. Should just threadsleep.
                      */
                     if (discCount > discToSlowAt) {
-                        pwmValue = 50;
+                        pwmValue = 40;
                         isSlowed = true;
                         spinCarousel((int) pwmValue);
                         //SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));

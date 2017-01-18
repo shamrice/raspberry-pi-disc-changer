@@ -40,10 +40,13 @@ public class DiscChangerStarter {
             }
             else {
                 try {
+                    if (args[1].toLowerCase().equals("backward")) {
+                        direction = Direction.BACKWARD;
+                    }
                     numDiscsToSpin = Integer.parseInt(args[0]);
                     System.out.println("Spinning " + numDiscsToSpin + " discs.");
-                } catch (NumberFormatException numFmtEx) {
-                    System.out.println("Not a number.");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
                     numDiscsToSpin = -1;
                     printUsage();
                 }
@@ -68,17 +71,8 @@ public class DiscChangerStarter {
                     } else if (doorStop) {
                         System.out.println("Stopping door motor.");
                         discChangerDevice.stopDoor();
-                    }
-
-                    else if (numDiscsToSpin > 0) {
-
-                    /* Rotate in one direction and then back to start position */
-                        discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.BACKWARD);
-
-                        System.out.println("Done... sleeping 2 second");
-                        Thread.sleep(2000);
-
-                        discChangerDevice.rotateCarousel(numDiscsToSpin, Direction.FORWARD);
+                    } else if (numDiscsToSpin > 0) {
+                        discChangerDevice.rotateCarousel(numDiscsToSpin, direction);
                     }
 
                     discChangerDevice.shutdown();
@@ -103,8 +97,9 @@ public class DiscChangerStarter {
         System.out.println("\t\t--start -s\tStart door motor");
         System.out.println("\t\t\t--direction -d\tDirection {FORWARD|BACKWARD}");
         System.out.println("\t\t--stop -st\tStop door motor.");
+        System.out.println("\t{NUMBER} {FORWARD|BACKWARD}\tSpin carousel number of discs specified in direction");
         System.out.println("\t--help -h\tDisplay help.");
-        System.out.println("\t{NUMBER} \tSpin number of numbers specified.");
+
         System.out.println();
     }
 }
