@@ -83,6 +83,7 @@ public class DiscChangerStarter {
 
                     discChangerDevice.shutdown();
 
+
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

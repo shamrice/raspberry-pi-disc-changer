@@ -3,6 +3,8 @@ package io.github.shamrice.discchanger.config;
 import com.pi4j.io.gpio.*;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
+import io.github.shamrice.discchanger.displayController.DisplayController;
+import io.github.shamrice.discchanger.displayController.SSD1306_I2CDisplayController;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,6 +33,7 @@ public class ConfigurationBuilder {
         /* Add motor configurations to config */
         configuration.addMotorConfiguration(buildCarouselMotorConfiguration());
         configuration.addMotorConfiguration(buildDoorMotorConfiguration());
+        configuration.setDisplayController(buildDisplayControllerConfiguration());
 
         return configuration;
     }
@@ -90,6 +93,18 @@ public class ConfigurationBuilder {
         doorMotorConfiguration = new MotorConfiguration(Definitions.DOOR_MOTOR_CONTROLLER, doorMotorPin1, doorMotorPin2, doorSensors);
 
         return doorMotorConfiguration;
+    }
+
+    public static DisplayController buildDisplayControllerConfiguration()  {
+        DisplayController displayController = null;
+
+        try {
+            displayController = new SSD1306_I2CDisplayController();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return displayController;
     }
 
 }

@@ -38,11 +38,11 @@ public class DoorMotorController extends MotorController {
         for(PinState states : pinStates.values()) {
             System.out.println("DOOR: " + states.getName() + " : " + states.getValue());
         }
-
+/*
         //close door on construction
         if (!pinStates.get(Definitions.DOOR_SENSOR_PIN1).isLow()) {
             start();
-        }
+        }*/
     }
 
     @Override

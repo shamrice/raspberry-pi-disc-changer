@@ -10,6 +10,7 @@ import com.pi4j.system.SystemInfo;
 
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.definitions.Definitions;
+import io.github.shamrice.discchanger.displayController.DisplayController;
 import io.github.shamrice.discchanger.motorcontroller.CarouselMotorController;
 import io.github.shamrice.discchanger.motorcontroller.Direction;
 import io.github.shamrice.discchanger.motorcontroller.DoorMotorController;
@@ -25,6 +26,8 @@ public class DiscChangerDevice {
     private Configuration configuration;
     private CarouselMotorController carouselMotorController;
     private DoorMotorController doorMotorController;
+    private DisplayController displayController;
+
     private static DiscChangerDevice instance = null;
 
     private DiscChangerDevice() {}
@@ -49,32 +52,45 @@ public class DiscChangerDevice {
         if (null != configuration) {
             carouselMotorController = new CarouselMotorController(configuration.getMotorConfigurationByName(Definitions.CAROUSEL_MOTOR_CONTROLLER));
             doorMotorController = new DoorMotorController(configuration.getMotorConfigurationByName(Definitions.DOOR_MOTOR_CONTROLLER));
+            displayController = configuration.getDisplayController();
         }
     }
 
     public void shutdown() {
+        try {
+            displayController.clearScreen();
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
+
         GpioController gpioController = GpioFactory.getInstance();
         gpioController.shutdown();
     }
 
     public void rotateCarousel(int numDiscs, Direction direction) {
+        displayController.drawString("Spin: " + numDiscs, 1, 24);
         carouselMotorController.spinNumDiscs(numDiscs, direction);
+        displayController.drawString("Done", 16, 24);
     }
 
     public void stopCarousel() {
+
+        displayController.drawString("Stop", 16, 24);
         carouselMotorController.stop();
     }
 
     public void moveDoor(Direction direction) throws InterruptedException {
-        System.out.println("Moving door");
+        displayController.drawString("Moving door", 1, 24);
         doorMotorController.setStaticDirection(direction);
         doorMotorController.start();
-        //doorMotorController.stop();
+        displayController.drawString("Done", 16, 24);
     }
 
     public void stopDoor() {
         doorMotorController.stop();
     }
+
+
     public void printDeviceInfo() throws IOException, InterruptedException, ParseException {
 
         /** Debug info copied from pi4j's website. **/
