@@ -8,6 +8,7 @@ SET password=password
 SET artifactsDirectory="C:\Erik-GitHub\raspberry-pi-disc-changer\raspberry-pi-disc-changer\out\artifacts\raspberry_pi_disc_changer_jar_and_config\"
 SET jarFilename="raspberry-pi-disc-changer.jar"
 SET configFilename="config.properties"
+SET bootImageFileName="boot.bmp"
 SET destLocation=disc_changer
 
 REM generate temp ftp script
@@ -17,6 +18,7 @@ echo binary >> %tempFile%
 echo cd %destLocation% >> %tempFile%
 echo put %artifactsDirectory%%jarFilename% >> %tempFile%
 echo put %artifactsDirectory%%configFilename% >> %tempFile%
+echo put %artifactsDirectory%%bootImageFileName% >> %tempFile%
 echo disconnect >> %tempFile%
 echo bye >> %tempFile%
 

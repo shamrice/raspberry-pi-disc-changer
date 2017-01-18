@@ -7,12 +7,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a5ea5296-b62a-4d24-920d-df95035c80d1" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/raspberry_pi_disc_changer_jar_and_config.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/raspberry_pi_disc_changer_jar_and_config.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/deploy.bat" afterPath="$PROJECT_DIR$/deploy.bat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/Configuration.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/Configuration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/DoorMotorController.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/DoorMotorController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/config.properties" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/SSD1306_I2CDisplayController.java" afterPath="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/SSD1306_I2CDisplayController.java" />
     </list>
     <ignored path="DiscChanger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,18 +52,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MotorController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/MotorController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="35">
-              <caret line="22" column="53" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DoorSensorListener.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/sensorListeners/DoorSensorListener.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -92,21 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.properties" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/config.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="DisplayController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -115,22 +93,39 @@
       <file leaf-file-name="SSD1306_I2CDisplayController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/SSD1306_I2CDisplayController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="130" column="46" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+            <state relative-caret-position="340">
+              <caret line="187" column="30" selection-start-line="187" selection-start-column="30" selection-end-line="187" selection-end-column="30" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4022#4023#0" expanded="true" />
-                <element signature="e#4077#4078#0" expanded="true" />
+                <element signature="e#4073#4074#0" expanded="true" />
+                <element signature="e#4128#4129#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="deploy.bat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/deploy.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="boot.bmp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/images/boot.bmp">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="DiscChangerDevice.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="72" column="53" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+            <state relative-caret-position="187">
+              <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -190,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/sensorListeners/carouselSensorListener.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/deviceStatus/DeviceStatusTracker.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/motorconfiguration/MotorConfiguration.java" />
-        <option value="$PROJECT_DIR$/deploy.bat" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationFactory.java" />
         <option value="$PROJECT_DIR$/src/test/java/io/github/shamrice/discchanger/config/definitions/DefinitionsTests.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
@@ -205,8 +199,9 @@
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/Configuration.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/config/ConfigurationBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/motorcontroller/DoorMotorController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerStarter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java" />
+        <option value="$PROJECT_DIR$/deploy.bat" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/SSD1306_I2CDisplayController.java" />
         <option value="$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java" />
       </list>
@@ -234,10 +229,10 @@
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1444" />
-    <option name="y" value="-4" />
+    <option name="x" value="-4" />
+    <option name="y" value="24" />
     <option name="width" value="1448" />
-    <option name="height" value="908" />
+    <option name="height" value="880" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -329,6 +324,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DiscChanger" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raspberry-pi-disc-changer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="resources" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -561,7 +582,7 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/config.properties" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/images/boot.bmp" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -1147,7 +1168,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1484150242403</updated>
-      <workItem from="1484150250520" duration="70460000" />
+      <workItem from="1484150250520" duration="72082000" />
     </task>
     <servers />
   </component>
@@ -1184,20 +1205,20 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="70460000" />
+    <option name="totallyTimeSpent" value="72082000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1444" y="-4" width="1448" height="908" extended-state="6" />
+    <frame x="-4" y="24" width="1448" height="880" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33813894" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33741498" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3403694" sideWeight="0.50277776" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33813894" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3510204" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292517" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292517" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -1287,14 +1308,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="62" column="0" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deploy.bat">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1397,8 +1410,7 @@
         <state relative-caret-position="34">
           <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#798#816#0" expanded="true" />
+            <element signature="e#798#816#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1474,7 +1486,20 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/DisplayController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="12" column="41" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/images/boot.bmp">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deploy.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="62" selection-start-line="20" selection-start-column="62" selection-end-line="20" selection-end-column="62" />
           <folding />
         </state>
       </provider>
@@ -1491,20 +1516,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/displayController/SSD1306_I2CDisplayController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="130" column="46" selection-start-line="130" selection-start-column="46" selection-end-line="130" selection-end-column="46" />
+        <state relative-caret-position="340">
+          <caret line="187" column="30" selection-start-line="187" selection-start-column="30" selection-end-line="187" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4022#4023#0" expanded="true" />
-            <element signature="e#4077#4078#0" expanded="true" />
+            <element signature="e#4073#4074#0" expanded="true" />
+            <element signature="e#4128#4129#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/io/github/shamrice/discchanger/DiscChangerDevice.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="72" column="53" selection-start-line="72" selection-start-column="53" selection-end-line="72" selection-end-column="53" />
+        <state relative-caret-position="187">
+          <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -5,9 +5,11 @@ import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
 import io.github.shamrice.discchanger.DiscChangerDevice;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -153,6 +155,36 @@ public class SSD1306_I2CDisplayController implements DisplayController{
             Raster r = image.getRaster();
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
+                    setPixel(x, y, (r.getSample(x, y, 0) > 0));
+                }
+            }
+
+            //write to screen.
+
+            for (int i = 0; i < buffer.length; i++) {
+                device.write(0x40, buffer[i]);
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void drawBootScreen() {
+        try {
+
+            clearScreen();
+
+            image = ImageIO.read(new File("boot.bmp"));
+            graphics = image.createGraphics();
+            //graphics.setFont(new Font("Monospaced", Font.PLAIN, 20));
+            graphics.setColor(Color.WHITE);
+            graphics.drawImage(image, 0, 0, null);
+
+            //build buffer based on graphics byte image.
+            Raster r = image.getRaster();
+            for (int y = 0; y < image.getHeight(); y++) {
+                for (int x = 0; x < image.getWidth(); x++) {
                     setPixel(x, y, (r.getSample(x, y, 0) > 0));
                 }
             }

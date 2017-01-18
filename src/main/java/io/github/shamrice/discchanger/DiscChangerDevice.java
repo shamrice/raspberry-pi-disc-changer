@@ -54,6 +54,7 @@ public class DiscChangerDevice {
             doorMotorController = new DoorMotorController(configuration.getMotorConfigurationByName(Definitions.DOOR_MOTOR_CONTROLLER));
             displayController = configuration.getDisplayController();
         }
+        displayController.drawBootScreen();
     }
 
     public void shutdown() {

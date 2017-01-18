@@ -10,6 +10,7 @@ public interface DisplayController {
     void setFont(String name, int size);
     void drawString(String text, int x, int y);
     void drawDiscNum(int num);
+    void drawBootScreen();
     void clearScreen() throws IOException;
 
 }
