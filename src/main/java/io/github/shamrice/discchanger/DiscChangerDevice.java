@@ -19,6 +19,8 @@ import io.github.shamrice.discchanger.motorcontroller.DoorMotorController;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by Erik on 1/14/2017.
@@ -29,6 +31,8 @@ public class DiscChangerDevice {
     private CarouselMotorController carouselMotorController;
     private DoorMotorController doorMotorController;
     private DisplayController displayController;
+
+    private int currentDiscNumber = 0;
 
     private static DiscChangerDevice instance = null;
 
@@ -57,6 +61,9 @@ public class DiscChangerDevice {
             displayController = new SSD1306_I2CDisplayController(configuration.getDisplayConfiguration());
         }
         displayController.drawBootScreen();
+
+        doorMotorController.init();
+        currentDiscNumber = carouselMotorController.init();
     }
 
     public void shutdown() {
@@ -73,7 +80,31 @@ public class DiscChangerDevice {
     public void rotateCarousel(int numDiscs, Direction direction) {
         displayController.drawString("Spin: " + numDiscs, 1, 24);
         carouselMotorController.spinNumDiscs(numDiscs, direction);
-        displayController.drawString("Done", 16, 24);
+        displayController.drawIdleScreen();
+    }
+
+    public void rotateCarouselToDisc(int discNum) {
+        displayController.drawDiscNum(discNum);
+
+        int discsToRotate = 0;
+        Direction directionToSpin = Direction.BACKWARD;
+
+        int tempCurrentDiscNum = currentDiscNumber;
+
+        if (discNum > tempCurrentDiscNum) {
+            discsToRotate = discNum - tempCurrentDiscNum;
+            directionToSpin = Direction.FORWARD;
+        } else if (discNum < tempCurrentDiscNum) {
+            discsToRotate = tempCurrentDiscNum - discNum;
+            directionToSpin = Direction.BACKWARD;
+        }
+
+        if (discsToRotate > 0) {
+            carouselMotorController.spinNumDiscs(discsToRotate, directionToSpin);
+        }
+
+        doorMotorController.setStaticDirection(Direction.BACKWARD);
+        doorMotorController.start();
     }
 
     public void stopCarousel() {
@@ -86,15 +117,16 @@ public class DiscChangerDevice {
         displayController.drawString("Moving door", 1, 24);
         doorMotorController.setStaticDirection(direction);
         doorMotorController.start();
-        displayController.drawString("Done", 16, 24);
+        displayController.drawIdleScreen();
     }
 
     public void stopDoor() {
         doorMotorController.stop();
     }
 
-
     public void printDeviceInfo() throws IOException, InterruptedException, ParseException {
+
+        displayController.drawIdleScreen();
 
         /** Debug info copied from pi4j's website. **/
 

@@ -20,6 +20,7 @@ public class DiscChangerStarter {
         boolean stop = false;
         boolean doorStart = false;
         boolean doorStop = false;
+        boolean rotateToDisc = false;
         Direction direction = Direction.FORWARD;
 
         if (args.length >= 1) {
@@ -37,6 +38,9 @@ public class DiscChangerStarter {
                 } else if (args[1].equals("--stop") || args[1].equals("-st")) {
                     doorStop = true;
                 }
+            } else if (args[0].equals("--carousel") || args[0].equals("-c")){
+                numDiscsToSpin = Integer.parseInt(args[1]);
+                rotateToDisc = true;
             }
             else {
                 try {
@@ -53,8 +57,7 @@ public class DiscChangerStarter {
             }
 
             try {
-                Configuration config = null;
-                config = ConfigurationBuilder.build();
+                Configuration config = ConfigurationBuilder.build();
 
                 if (null != config) {
 
@@ -62,7 +65,7 @@ public class DiscChangerStarter {
                     discChangerDevice.setConfiguration(config);
 
                     if (displayInfo)
-                        discChangerDevice.printDeviceInfo();
+                       discChangerDevice.printDeviceInfo();
                     else if (stop)
                         discChangerDevice.stopCarousel();
 
@@ -71,14 +74,14 @@ public class DiscChangerStarter {
                     } else if (doorStop) {
                         System.out.println("Stopping door motor.");
                         discChangerDevice.stopDoor();
-                    } else if (numDiscsToSpin > 0) {
+                    } else if (rotateToDisc) {
+                        discChangerDevice.rotateCarouselToDisc(numDiscsToSpin);
+                    } else if (numDiscsToSpin > 0 && !rotateToDisc) {
                         discChangerDevice.rotateCarousel(numDiscsToSpin, direction);
                     }
 
                     discChangerDevice.shutdown();
-
-
-                }
+                    }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -86,7 +89,7 @@ public class DiscChangerStarter {
             printUsage();
         }
 
-        System.exit(0);
+       // System.exit(0);
     }
 
     public static void printUsage() {
@@ -97,6 +100,8 @@ public class DiscChangerStarter {
         System.out.println("\t\t--start -s\tStart door motor");
         System.out.println("\t\t\t--direction -d\tDirection {FORWARD|BACKWARD}");
         System.out.println("\t\t--stop -st\tStop door motor.");
+        System.out.println("\t--carousel -c\tRun carousel motor");
+        System.out.println("\t\t{NUMBER}\t disc to stop carousel at");
         System.out.println("\t{NUMBER} {FORWARD|BACKWARD}\tSpin carousel number of discs specified in direction");
         System.out.println("\t--help -h\tDisplay help.");
 

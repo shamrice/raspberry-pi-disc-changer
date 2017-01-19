@@ -118,7 +118,7 @@ public class SSD1306_I2CDisplayController implements DisplayController{
 
     public void drawString(String text, int x, int y){
         try {
-            clearScreen();
+           // clearScreen();
 
             image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
             graphics = image.createGraphics();
@@ -146,7 +146,7 @@ public class SSD1306_I2CDisplayController implements DisplayController{
 
         try {
 
-            clearScreen();
+     //       clearScreen();
 
             image = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
             graphics = image.createGraphics();
@@ -177,11 +177,19 @@ public class SSD1306_I2CDisplayController implements DisplayController{
     }
 
     public void drawBootScreen() {
+        drawImage(this.config.getBootImageLocation());
+    }
+
+    public void drawIdleScreen() {
+        drawImage(this.config.getIdleImageLocation());
+    }
+
+    private void drawImage(String imagePath) {
         try {
 
-            clearScreen();
+            //clearScreen();
 
-            image = ImageIO.read(new File(this.config.getBootImageLocation()));
+            image = ImageIO.read(new File(imagePath));
             graphics = image.createGraphics();
             //graphics.setFont(new Font("Monospaced", Font.PLAIN, 20));
             graphics.setColor(Color.WHITE);

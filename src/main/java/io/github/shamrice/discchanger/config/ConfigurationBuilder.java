@@ -46,6 +46,7 @@ public class ConfigurationBuilder {
         /* set up carousel sensor pin information */
         Pin carouselSensorPin1 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.CAROUSEL_SENSOR1_PIN));
         Pin carouselSensorPin2 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.CAROUSEL_SENSOR2_PIN));
+        Pin carouselSensorPin3 = RaspiPin.getPinByName("GPIO " + configProperties.getProperty(Definitions.CAROUSEL_SENSOR3_PIN));
 
         GpioPinDigitalInput carouselMotorSensorPinA = gpioController.provisionDigitalInputPin(carouselSensorPin1, Definitions.CAROUSEL_SENSOR1_PIN, PinPullResistance.PULL_DOWN);
         carouselMotorSensorPinA.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
@@ -53,9 +54,14 @@ public class ConfigurationBuilder {
         GpioPinDigitalInput carouselMotorSensorPinB = gpioController.provisionDigitalInputPin(carouselSensorPin2, Definitions.CAROUSEL_SENSOR2_PIN, PinPullResistance.PULL_DOWN);
         carouselMotorSensorPinB.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
 
+        GpioPinDigitalInput carouselMotorSensorPinC = gpioController.provisionDigitalInputPin(carouselSensorPin3, Definitions.CAROUSEL_SENSOR3_PIN, PinPullResistance.PULL_DOWN);
+        carouselMotorSensorPinC.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
+
+
         List<GpioPinDigitalInput> carouselSensors = new ArrayList<GpioPinDigitalInput>();
         carouselSensors.add(carouselMotorSensorPinA);
         carouselSensors.add(carouselMotorSensorPinB);
+        carouselSensors.add(carouselMotorSensorPinC);
 
         /* set up carousel motor pin information */
         int carouselMotorPin1 = Integer.parseInt(configProperties.getProperty(Definitions.CAROUSEL_MOTOR_CONTROLLER_PIN1));
@@ -104,8 +110,9 @@ public class ConfigurationBuilder {
             int i2cAddress = Integer.parseInt(configProperties.getProperty(Definitions.DISPLAY_I2C_ADDRESS));
             int i2cBus = Integer.parseInt(configProperties.getProperty(Definitions.DISPLAY_I2C_BUS));
             String bootImage = configProperties.getProperty(Definitions.DISPLAY_BOOT_IMAGE_LOCATION);
+            String idleImage = configProperties.getProperty(Definitions.DISPLAY_IDLE_IMAGE_LOCATION);
 
-            displayConfiguration = new DisplayConfiguration(i2cAddress, i2cBus, bootImage);
+            displayConfiguration = new DisplayConfiguration(i2cAddress, i2cBus, bootImage, idleImage);
 
         } catch (Exception ex) {
             ex.printStackTrace();

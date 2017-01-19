@@ -8,22 +8,26 @@ import com.pi4j.io.gpio.GpioPinDigitalInput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.wiringpi.SoftPwm;
 
+import io.github.shamrice.discchanger.config.definitions.Definitions;
 import io.github.shamrice.discchanger.config.motorconfiguration.MotorConfiguration;
+import io.github.shamrice.discchanger.motorcontroller.positionLookup.CarouselPositionLookup;
 import io.github.shamrice.discchanger.motorcontroller.sensorListeners.CarouselSensorListener;
 
+import java.util.Observable;
 import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
  * Concrete class for disc carousel motor controls.
  */
-public class CarouselMotorController extends MotorController {
+public class CarouselMotorController extends MotorController  {
 
     final int minSpinPwm = 40;
-    final int maxSpinPwm = 170;
+    final int maxSpinPwm = 120;
 
     private static int discCount = 0;
     private static int numDiscsToSpin = 0;
+    private static int positionHighCount = 0;
     private static ConcurrentHashMap<String, PinState> pinStates = new ConcurrentHashMap<String, PinState>();
 
     public CarouselMotorController(MotorConfiguration motorConfiguration)  {
@@ -36,10 +40,8 @@ public class CarouselMotorController extends MotorController {
         for(GpioPinDigitalInput sensorInput : super.sensorInputs) {
             pinStates.put(sensorInput.getName(), sensorInput.getState());
             sensorInput.addListener(new CarouselSensorListener(sensorInput.getName()));
-        }
 
-        for(PinState states : pinStates.values()) {
-            System.out.println(states.getName() + " : " + states.getValue());
+            System.out.println(sensorInput.getName() + " : " + sensorInput.getState());
         }
     }
 
@@ -53,34 +55,83 @@ public class CarouselMotorController extends MotorController {
         SoftPwm.softPwmWrite(motorPinB, 0);
     }
 
-    public static synchronized void setPinStateByName(String sensorName, PinState newState) {
+    public int init() {
+
+        CarouselPositionLookup carouselPositionLookup = new CarouselPositionLookup();
+        int tempCurrentDiscNum = -1;
+
+        //loop while currentDiscNum is unknown.
+        while (tempCurrentDiscNum < 0) {
+
+            boolean  highCountFinished = false;
+            boolean highFound = false;
+
+            PinState sensorStartState = pinStates.get(Definitions.CAROUSEL_SENSOR3_PIN);
+
+            direction = Direction.FORWARD;
+            spinCarousel(45);
+
+            if (sensorStartState.isLow()) {
+                while (!highCountFinished) {
+
+                    PinState currentSensorState = pinStates.get(Definitions.CAROUSEL_SENSOR3_PIN);
+
+                    if (!highFound && (sensorStartState.getValue() != currentSensorState.getValue()) && currentSensorState.isHigh()){
+                        System.out.println("high found!");
+                        highFound = true;
+                    }
+
+                    if (currentSensorState.isLow() && highFound) {
+                        System.out.println("high Count scan complete.");
+                        System.out.println("Attempting to look up: " + positionHighCount);
+                        tempCurrentDiscNum = carouselPositionLookup.getPosition(positionHighCount);
+                        positionHighCount = 0;
+                        highCountFinished = true;
+                    }
+                }
+            }
+        }
+
+        stop();
+        System.out.println("Current disc num=" + tempCurrentDiscNum);
+        return tempCurrentDiscNum;
+    }
+
+    public static void setPinStateByName(String sensorName, PinState newState) {
 
         pinStates.replace(sensorName, newState);
-        checkDiscTravelled();
+
+        //3rd pin is not used to check if disc has travelled.
+        if (!sensorName .equals(Definitions.CAROUSEL_SENSOR3_PIN)) {
+            checkDiscTravelled();
+        }
     }
 
     private static synchronized void checkDiscTravelled() {
 
-        boolean allHigh = true;
-        for (PinState pinState: pinStates.values()) {
-            System.out.print(":" + pinState.getValue() + " ");
-            if (pinState.isLow()) {
-                allHigh = false;
+        if (pinStates.get(Definitions.CAROUSEL_SENSOR1_PIN).isHigh() && pinStates.get(Definitions.CAROUSEL_SENSOR2_PIN).isHigh()) {
+            discCount++;
+            if (pinStates.get(Definitions.CAROUSEL_SENSOR3_PIN).isHigh()) {
+                positionHighCount++;
             }
         }
-        if (allHigh) {
-            discCount++;
+
+        for(PinState state : pinStates.values()) {
+            System.out.print(state.getValue() + ", ");
         }
 
         System.out.print(discCount + "\n");
 
         if (discCount >= numDiscsToSpin) {
-            System.out.println("STOP");
+          //  System.out.println("STOP");
             isRunning = false;
         }
     }
 
     public void spinNumDiscs(int numDiscsToSpin, Direction direction) {
+
+        //reset disc count.
+        discCount = 0;
 
         if (numDiscsToSpin > 0) {
 
@@ -111,14 +162,11 @@ public class CarouselMotorController extends MotorController {
                         pwmValue = 40;
                         isSlowed = true;
                         spinCarousel((int) pwmValue);
-                        //SoftPwm.softPwmWrite(motorPinA, ((int) pwmValue));
                     }
 
                     if (!isMaxSpeed && !isSlowed) {
 
                         for (int i = 0; i <= pwmValue; i++) {
-
-                            //SoftPwm.softPwmWrite(motorPinA, i);
                             spinCarousel(i);
                             if (discCount > discToSlowAt) {
                                 break;
@@ -150,3 +198,4 @@ public class CarouselMotorController extends MotorController {
         }
     }
 }
+

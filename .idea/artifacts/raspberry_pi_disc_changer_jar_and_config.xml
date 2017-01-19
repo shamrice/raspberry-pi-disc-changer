@@ -5,6 +5,7 @@
       <element id="artifact" artifact-name="raspberry-pi-disc-changer:jar" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
       <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/boot.bmp" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/idle.bmp" />
     </root>
   </artifact>
 </component>

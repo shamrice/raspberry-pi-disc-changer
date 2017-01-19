@@ -11,6 +11,8 @@ public interface DisplayController {
     void drawString(String text, int x, int y);
     void drawDiscNum(int num);
     void drawBootScreen();
+    void drawIdleScreen();
     void clearScreen() throws IOException;
+
 
 }

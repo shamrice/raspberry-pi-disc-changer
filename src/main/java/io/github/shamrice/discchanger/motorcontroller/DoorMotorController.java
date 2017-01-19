@@ -38,11 +38,7 @@ public class DoorMotorController extends MotorController {
         for(PinState states : pinStates.values()) {
             System.out.println("DOOR: " + states.getName() + " : " + states.getValue());
         }
-/*
-        //close door on construction
-        if (!pinStates.get(Definitions.DOOR_SENSOR_PIN1).isLow()) {
-            start();
-        }*/
+
     }
 
     @Override
@@ -84,6 +80,11 @@ public class DoorMotorController extends MotorController {
         System.out.println("Stop method on door controller.");
         motorOutputPinA.setState(false);
         motorOutputPinB.setState(false);
+    }
+
+    public void init() {
+        staticDirection = Direction.FORWARD;
+        start();
     }
 
     public void setStaticDirection(Direction direction) {
