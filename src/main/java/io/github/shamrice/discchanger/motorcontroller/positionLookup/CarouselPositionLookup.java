@@ -22,15 +22,6 @@ public class CarouselPositionLookup {
         //without further needless processing. Instead, the carousel will just spin until it finds the next unique highCount.
 
         switch(highCount){
-            case 8:
-                discLocation = 18;
-                break;
-            case 9:
-                discLocation = 39;
-                break;
-            case 10:
-                discLocation = 60;
-                break;
             case 1:
                 discLocation = 71;
                 break;
@@ -51,6 +42,15 @@ public class CarouselPositionLookup {
                 break;
             case 7:
                 discLocation = 197;
+                break;
+            case 8:
+                discLocation = 18;
+                break;
+            case 9:
+                discLocation = 39;
+                break;
+            case 10:
+                discLocation = 60;
                 break;
         }
 

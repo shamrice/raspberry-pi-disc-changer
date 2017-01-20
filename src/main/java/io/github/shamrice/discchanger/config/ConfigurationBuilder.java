@@ -25,7 +25,7 @@ public class ConfigurationBuilder {
     public static Configuration build() throws IOException {
 
         /* load config properties from config file */
-        InputStream configInput = new FileInputStream(Definitions.CONFIG_FILE_NAME);
+        InputStream configInput = new FileInputStream(Definitions.CONFIG_FILE_LOCATION);
         configProperties.load(configInput);
         configInput.close();
 

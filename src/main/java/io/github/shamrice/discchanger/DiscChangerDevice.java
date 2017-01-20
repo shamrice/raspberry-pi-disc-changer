@@ -64,6 +64,7 @@ public class DiscChangerDevice {
 
         doorMotorController.init();
         currentDiscNumber = carouselMotorController.init();
+
     }
 
     public void shutdown() {
@@ -95,7 +96,7 @@ public class DiscChangerDevice {
             discsToRotate = discNum - tempCurrentDiscNum;
             directionToSpin = Direction.FORWARD;
         } else if (discNum < tempCurrentDiscNum) {
-            discsToRotate = tempCurrentDiscNum - discNum;
+            discsToRotate = tempCurrentDiscNum - discNum + 1;
             directionToSpin = Direction.BACKWARD;
         }
 
@@ -105,6 +106,8 @@ public class DiscChangerDevice {
 
         doorMotorController.setStaticDirection(Direction.BACKWARD);
         doorMotorController.start();
+        displayController.drawIdleScreen();
+
     }
 
     public void stopCarousel() {

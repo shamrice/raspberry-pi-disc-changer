@@ -8,7 +8,7 @@ public final class Definitions {
     /*
         Motor controller related string constants.
      */
-    public static final String CONFIG_FILE_NAME = "config.properties";
+    public static final String CONFIG_FILE_LOCATION = "conf/config.properties";
 
     public static final String CAROUSEL_MOTOR_CONTROLLER = "CAROUSEL_MOTOR_CONTROLLER";
     public static final String DOOR_MOTOR_CONTROLLER = "DOOR_MOTOR_CONTROLLER";

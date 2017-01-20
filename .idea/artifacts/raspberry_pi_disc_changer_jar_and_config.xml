@@ -3,9 +3,18 @@
     <output-path>$PROJECT_DIR$/out/artifacts/raspberry_pi_disc_changer_jar_and_config</output-path>
     <root id="root">
       <element id="artifact" artifact-name="raspberry-pi-disc-changer:jar" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/boot.bmp" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/idle.bmp" />
+      <element id="directory" name="conf">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.properties" />
+      </element>
+      <element id="directory" name="resources">
+        <element id="directory" name="images">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/idle.bmp" />
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/images/boot.bmp" />
+        </element>
+        <element id="directory" name="scripts">
+          <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/scripts/run.sh" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
