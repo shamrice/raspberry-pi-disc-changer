@@ -65,6 +65,7 @@ public class DiscChangerDevice {
         doorMotorController.init();
         currentDiscNumber = carouselMotorController.init();
 
+        displayController.drawIdleScreen();
     }
 
     public void shutdown() {

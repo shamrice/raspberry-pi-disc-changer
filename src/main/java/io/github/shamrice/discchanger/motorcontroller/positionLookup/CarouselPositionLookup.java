@@ -21,6 +21,12 @@ public class CarouselPositionLookup {
         //we discard 9 because 9 appears twice in the sensor matrix and is not reliable to get an accurate disc number from
         //without further needless processing. Instead, the carousel will just spin until it finds the next unique highCount.
 
+        /* least sig dig = high count
+            most sig dig = high count * 2
+            Door offset + 50 discs
+            Sensor 1 = 21
+         */
+
         switch(highCount){
             case 1:
                 discLocation = 71;

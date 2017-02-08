@@ -3,6 +3,8 @@ package io.github.shamrice.discchanger;
 import io.github.shamrice.discchanger.config.Configuration;
 import io.github.shamrice.discchanger.config.ConfigurationBuilder;
 import io.github.shamrice.discchanger.motorcontroller.Direction;
+import io.github.shamrice.discchanger.service.DiscChangerService;
+import io.github.shamrice.discchanger.service.SerialDiscChangerService;
 
 /**
  * Created by Erik on 1/11/2017.
@@ -15,6 +17,15 @@ public class DiscChangerStarter {
      */
     public static void main(String[] args) throws InterruptedException {
 
+        try {
+            DiscChangerService service = new SerialDiscChangerService();
+            service.run();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        /*
         int numDiscsToSpin = 0;
         boolean displayInfo = false;
         boolean stop = false;
@@ -90,6 +101,7 @@ public class DiscChangerStarter {
         }
 
        // System.exit(0);
+       */
     }
 
     public static void printUsage() {
